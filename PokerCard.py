@@ -21,8 +21,10 @@ def flush_hand(hand):
     cards_suit = int(hand[0]/13)
     for i in hand:
         if (not(cards_suit == int(i/13))):
-            return False
-    return True
+            return False,hand
+    ordered_flush = [int(i%13) for i in hand]
+    ordered_flush.sort(reverse = True)
+    return True, ordered_flush
 
 #check for straight hand
 
@@ -31,8 +33,10 @@ def straight_hand(hand):
     for i in hand[1:]:
         print(str(lowest_card) + " " + str(i%13))
         if (not ((lowest_card + 1) == i%13)):
-            return False
+            return False, hand
         lowest_card += 1
+    ordered_straight = [int(i%13) for i in hand]
+    ordered_straight.sort(reverse = True)
     return True
 
 #check for straight flush hand
