@@ -1,3 +1,11 @@
+#TO-DO
+#Return the order of the hands from each function
+#Be able to produce random set of hands 
+#Configure the straight function so that it is able to return true for 10-A
+#Figure out the time complexity
+
+
+
 import random
 
 def number_to_card(card):
@@ -37,11 +45,12 @@ def straight_hand(hand):
         lowest_card += 1
     ordered_straight = [int(i%13) for i in hand]
     ordered_straight.sort(reverse = True)
-    return True
+    return True, ordered_straight
 
 #check for straight flush hand
 
 def straight_flush_hand(hand):
+    hand.sort(reverse = True)
     return (straight_hand(hand) and flush_hand(hand))
 
 
@@ -49,39 +58,43 @@ def straight_flush_hand(hand):
 
 def three_of_kind_hand(hand):
     temp_hand = [i%13 for i in hand]
+    temp_hand.sort(reverse = True)
     print(temp_hand)
     for i in temp_hand[:3]:
         print(temp_hand.count(i))
         if (temp_hand.count(i) == 3):
-            return True
-    return False
+            return True, temp_hand
+    return False, temp_hand
 
 #check for four of a kind
 
 def four_of_kind_hand(hand):
     temp_hand = [i%13 for i in hand]
+    temp_hand.sort(reverse = True)
     print(temp_hand)
     for i in temp_hand[:2]:
         print(temp_hand.count(i))
         if (temp_hand.count(i) == 4):
-            return True
-    return False
+            return True, temp_hand
+    return False, temp_hand
 
 #check for pair in hand
 
 def pair_hand(hand):
     temp_hand = [i%13 for i in hand]
+    temp_hand.sort(reverse = True)
     print(temp_hand)
     for i in temp_hand[:4]:
         print(temp_hand.count(i))
         if (temp_hand.count(i) == 2):
-            return True
-    return False
+            return True, temp_hand
+    return False, temp_hand
 
 #check for two pair in hand
 
 def two_pair_hand(hand):
     temp_hand = [i%13 for i in hand]
+    temp_hand.sort(reverse = True)
     print(temp_hand)
     for i in temp_hand[:1]:
         print(i)
@@ -90,13 +103,14 @@ def two_pair_hand(hand):
             print(hand_without_second_pair)
             for i in hand_without_second_pair[:2]:
                 if (hand_without_second_pair.count(i) == 2):
-                    return True
-    return False
+                    return True, temp_hand
+    return False, temp_hand
 
 #check for a full house
 
 def full_house_hand(hand):
-    return (three_of_kind_hand(hand) and pair_hand(hand))
+    hand.sort(reverse = True)
+    return (three_of_kind_hand(hand) and pair_hand(hand)), hand
 
 
 if __name__ == "__main__":
@@ -125,10 +139,3 @@ if __name__ == "__main__":
     print("")
     print(hand_one)
     print(convert_poker_hand_list(hand_one))
-
-
-
-
-
-    
-
