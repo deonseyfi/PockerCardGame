@@ -1,7 +1,6 @@
 import random
 from collections import Counter
 
-from cv2 import CAP_PROP_XI_HDR_T2
 def number_to_card(card):
     suit = int(card / 13)
     if (suit == 0):
